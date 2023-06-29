@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:weather_app/core/injection_container.dart';
 import 'package:weather_app/core/presentation/app_colors.dart';
 import 'package:weather_app/core/presentation/app_ui.dart';
 import 'package:weather_app/core/presentation/widgets/indicator.dart';
-import 'package:weather_app/core/utils/failure.dart';
 import 'package:weather_app/features/register/presentation/bloc/registration_bloc.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -37,7 +35,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 loading: () {
                   loading = true;
                 },
-                register: () {},
+                register: () {
+                  loading = false;
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.pop(context);
+                  });
+                  
+                },
                 error: (failure) {
                   errorText = "Неправильный логин или пароль";
                 });
@@ -48,7 +52,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: AppUI.contentPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [_buildTitle(), _buildForm()],
+                    children: [
+                      if(errorText != null) _buildErrorHeader(),
+                      _buildTitle(), _buildForm()],
                   ),
                 ));
           },
@@ -60,6 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            
             Text(
               'Регистрация',
               style: Theme.of(context).textTheme.titleLarge,
@@ -83,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
           AppUI.contentVerticalSpacing,
           _buildTextField(passwordController, 'Пароль', true),
           AppUI.contentVerticalSpacing,
-          _buildTextField(passwordController, 'Повторите вароль', true),
+          _buildTextField(repeatPasswordController, 'Повторите вароль', true),
           AppUI.contentVerticalSpacing,
           _buildButton()
         ],
@@ -109,9 +116,10 @@ class _RegisterPageState extends State<RegisterPage> {
           : const Text("Зарегестрироваться"));
   _buildErrorHeader() => Container(
     height: 40,
-    decoration: const BoxDecoration(
-      color: AppColors.red
+    decoration: BoxDecoration(
+      color: AppColors.red,
+      borderRadius: AppUI.borderRadius1,
     ),
-    child: Center(child: Text(errorText ?? ""),),
+    child: Center(child: Text(errorText ?? "", style: Theme.of(context).textTheme.titleMedium!.copyWith(color: AppColors.white),), ),
   );
 }

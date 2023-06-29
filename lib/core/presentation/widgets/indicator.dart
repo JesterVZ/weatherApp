@@ -17,18 +17,18 @@ abstract class _ProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: progressSize,
+      width: progressSize,
       child: CircularProgressIndicator(
         color: progressColor,
         strokeWidth: progressWidth,
       ),
-      height: progressSize,
-      width: progressSize,
     );
   }
 }
 
 class AppProgressIndicator extends _ProgressIndicator {
-  const AppProgressIndicator()
+  const AppProgressIndicator({super.key})
       : super(
     progressSize: AppUI.progressIndicatorSize,
     progressColor: AppColors.appColor,
@@ -37,7 +37,7 @@ class AppProgressIndicator extends _ProgressIndicator {
 }
 
 class ButtonProgressIndicator extends _ProgressIndicator {
-  const ButtonProgressIndicator()
+  const ButtonProgressIndicator({super.key})
       : super(
     progressSize: AppUI.progressIndicatorSizeSmall,
     progressColor: Colors.white,
@@ -46,7 +46,7 @@ class ButtonProgressIndicator extends _ProgressIndicator {
 }
 
 class TextFieldProgressIndicator extends _ProgressIndicator {
-  const TextFieldProgressIndicator()
+  const TextFieldProgressIndicator({super.key})
       : super(
     progressSize: AppUI.progressIndicatorSizeSmall,
     progressColor: AppColors.appColor,
