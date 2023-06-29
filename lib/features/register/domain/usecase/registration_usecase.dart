@@ -1,12 +1,16 @@
-abstract interface class RegistrationUseCase{
-  Future call(String login, String password);
+import 'package:dartz/dartz.dart';
+import 'package:weather_app/core/utils/failure.dart';
+import 'package:weather_app/features/register/domain/repository/register_repository.dart';
+
+abstract interface class RegistrationUseCase {
+  Future<Either<Failure, bool>> call(String login, String password);
 }
 
-class RegistrationUseCaseImpl implements RegistrationUseCase{
+class RegistrationUseCaseImpl implements RegistrationUseCase {
+  RegistrationUseCaseImpl({required this.repository});
+  final RegisterRepository repository;
+
   @override
-  Future call(String login, String password) {
-    // TODO: implement call
-    throw UnimplementedError();
-  }
-  
+  Future<Either<Failure, bool>> call(String login, String password) async =>
+      await repository.register(login, password);
 }

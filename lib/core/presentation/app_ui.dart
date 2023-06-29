@@ -15,6 +15,9 @@ abstract class AppUI {
   static const contentVerticalSpacing = SizedBox(height: _paddingLs);
   static const contentVerticalSpacingExtraSmall = SizedBox(height: _paddingXS);
 
+  static const progressIndicatorSize = 32.0;
+  static const progressIndicatorSizeSmall = 16.0;
+
   static const contentPadding = EdgeInsets.only(left: 24, right: 24, top: 48);
 
   static BorderRadius borderRadius1 = BorderRadius.circular(8);
