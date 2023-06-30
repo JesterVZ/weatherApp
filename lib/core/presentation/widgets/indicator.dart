@@ -28,10 +28,11 @@ abstract class _ProgressIndicator extends StatelessWidget {
 }
 
 class AppProgressIndicator extends _ProgressIndicator {
-  const AppProgressIndicator({super.key})
+  final Color? color;
+  const AppProgressIndicator({super.key, this.color})
       : super(
     progressSize: AppUI.progressIndicatorSize,
-    progressColor: AppColors.appColor,
+    progressColor: color ?? AppColors.appColor,
     progressWidth: 3.0,
   );
 }

@@ -21,6 +21,7 @@ Weather _$WeatherFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Weather {
   String get main => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -32,7 +33,7 @@ abstract class $WeatherCopyWith<$Res> {
   factory $WeatherCopyWith(Weather value, $Res Function(Weather) then) =
       _$WeatherCopyWithImpl<$Res, Weather>;
   @useResult
-  $Res call({String main});
+  $Res call({String main, String description});
 }
 
 /// @nodoc
@@ -49,11 +50,16 @@ class _$WeatherCopyWithImpl<$Res, $Val extends Weather>
   @override
   $Res call({
     Object? main = null,
+    Object? description = null,
   }) {
     return _then(_value.copyWith(
       main: null == main
           ? _value.main
           : main // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -66,7 +72,7 @@ abstract class _$$_WeatherCopyWith<$Res> implements $WeatherCopyWith<$Res> {
       __$$_WeatherCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String main});
+  $Res call({String main, String description});
 }
 
 /// @nodoc
@@ -80,11 +86,16 @@ class __$$_WeatherCopyWithImpl<$Res>
   @override
   $Res call({
     Object? main = null,
+    Object? description = null,
   }) {
     return _then(_$_Weather(
       main: null == main
           ? _value.main
           : main // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -93,17 +104,19 @@ class __$$_WeatherCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Weather implements _Weather {
-  const _$_Weather({required this.main});
+  const _$_Weather({required this.main, required this.description});
 
   factory _$_Weather.fromJson(Map<String, dynamic> json) =>
       _$$_WeatherFromJson(json);
 
   @override
   final String main;
+  @override
+  final String description;
 
   @override
   String toString() {
-    return 'Weather(main: $main)';
+    return 'Weather(main: $main, description: $description)';
   }
 
   @override
@@ -111,12 +124,14 @@ class _$_Weather implements _Weather {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Weather &&
-            (identical(other.main, main) || other.main == main));
+            (identical(other.main, main) || other.main == main) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, main);
+  int get hashCode => Object.hash(runtimeType, main, description);
 
   @JsonKey(ignore: true)
   @override
@@ -133,12 +148,16 @@ class _$_Weather implements _Weather {
 }
 
 abstract class _Weather implements Weather {
-  const factory _Weather({required final String main}) = _$_Weather;
+  const factory _Weather(
+      {required final String main,
+      required final String description}) = _$_Weather;
 
   factory _Weather.fromJson(Map<String, dynamic> json) = _$_Weather.fromJson;
 
   @override
   String get main;
+  @override
+  String get description;
   @override
   @JsonKey(ignore: true)
   _$$_WeatherCopyWith<_$_Weather> get copyWith =>

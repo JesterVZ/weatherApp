@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/core/injection_container.dart';
 import 'package:weather_app/core/presentation/app_colors.dart';
 import 'package:weather_app/core/presentation/app_ui.dart';
+import 'package:weather_app/core/presentation/widgets/indicator.dart';
+import 'package:weather_app/features/content/data/entities/weather/weather_data.dart';
 import 'package:weather_app/features/content/presentation/bloc/weather_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({super.key});
@@ -19,6 +21,8 @@ class _ContentPageState extends State<ContentPage> {
   String? errorText;
   bool loading = true;
 
+  late WeatherData currentWeather;
+
   final bloc = locator<WeatherBloc>();
 
   @override
@@ -27,13 +31,16 @@ class _ContentPageState extends State<ContentPage> {
     _getCurrentPosition();
   }
 
+  Future<void> _onRefrash() async {
+    bloc.add(GetWeather(position!));
+  }
+
   _getCurrentPosition() async {
     await _determinePosition().then((value) {
       position = value;
-      if(position != null){
+      if (position != null) {
         bloc.add(GetWeather(position!));
       }
-
     }).onError((error, stackTrace) {
       setState(() {
         errorText = error.toString();
@@ -83,30 +90,75 @@ class _ContentPageState extends State<ContentPage> {
           builder: (context, state) {
             state.when(
               initial: () {},
-              getWeather: (response) {},
+              getWeather: (response) {
+                loading = false;
+                currentWeather = response;
+              },
               loading: () {
                 loading = true;
               },
               error: (failure) {
+                loading = false;
                 errorText = "Ошибка получения данных";
               },
             );
             return AppUI.appScaffold(
-              context: context,
-              gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [AppColors.appColor, AppColors.black]),
-                const Padding(
-                  padding: AppUI.contentPadding,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      
-                    ],
-                  ),
-                ));
+                context: context,
+                gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [AppColors.appColor, AppColors.black]),
+                loading
+                    ? const Center(
+                        child: AppProgressIndicator(color: AppColors.white),
+                      )
+                    : Padding(
+                        padding: AppUI.contentPadding,
+                        child: RefreshIndicator(
+                          onRefresh: _onRefrash,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                  child: ListView(
+                                children: [_buildLocation(),_buildWeatherImage(currentWeather.list[0].weather[0].main)],
+                              )),
+                            ],
+                          ),
+                        ),
+                      ));
           },
         ),
       );
+  _buildLocation() => Row(
+        children: [
+          SizedBox(
+              width: 24,
+              height: 24,
+              child: SvgPicture.asset('assets/location.svg')),
+          Text(
+            "${currentWeather.city.name}, ${currentWeather.city.country}",
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(color: AppColors.white),
+          )
+        ],
+      );
+
+  _weatherImage() => Container(
+        width: 180,
+        height: 180,
+        decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: RadialGradient(
+                colors: [Color(0xFFBD87FF), Colors.transparent])),
+        child: Center(child: _buildWeatherImage(currentWeather.list[0].weather[0].main)),
+      );
+  _buildWeatherImage(String weather) => SizedBox(width: 120, height: 120, child: switch (weather) {
+        'Rain' => SvgPicture.asset('assets/rain.svg',),
+        'Snow' => SvgPicture.asset('assets/snow.svg'),
+        'Clouds' => SvgPicture.asset('assets/location.svg' ),
+        'Extreme' => SvgPicture.asset('assets/storm.svg'),
+        _ => SvgPicture.asset('assets/sun.svg')
+      });
 }

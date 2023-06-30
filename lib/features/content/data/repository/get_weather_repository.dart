@@ -20,7 +20,8 @@ class GetWeatherRepositoryImpl implements GetWeatherRepository {
   _paramsMap(Position position) => {
         'lat': position.latitude,
         'lon': position.longitude,
-        //'exclude': 'hourly,daily',
+        'lang': 'ru',
+        'units': 'metric',
         'appid': App.apiKey
       };
 }

@@ -313,7 +313,7 @@ mixin _$WeatherState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(dynamic response) getWeather,
+    required TResult Function(WeatherData response) getWeather,
     required TResult Function() loading,
     required TResult Function(Failure failure) error,
   }) =>
@@ -321,7 +321,7 @@ mixin _$WeatherState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(dynamic response)? getWeather,
+    TResult? Function(WeatherData response)? getWeather,
     TResult? Function()? loading,
     TResult? Function(Failure failure)? error,
   }) =>
@@ -329,7 +329,7 @@ mixin _$WeatherState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(dynamic response)? getWeather,
+    TResult Function(WeatherData response)? getWeather,
     TResult Function()? loading,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -418,7 +418,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(dynamic response) getWeather,
+    required TResult Function(WeatherData response) getWeather,
     required TResult Function() loading,
     required TResult Function(Failure failure) error,
   }) {
@@ -429,7 +429,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(dynamic response)? getWeather,
+    TResult? Function(WeatherData response)? getWeather,
     TResult? Function()? loading,
     TResult? Function(Failure failure)? error,
   }) {
@@ -440,7 +440,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(dynamic response)? getWeather,
+    TResult Function(WeatherData response)? getWeather,
     TResult Function()? loading,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -499,7 +499,9 @@ abstract class _$$_GetWeatherCopyWith<$Res> {
           _$_GetWeather value, $Res Function(_$_GetWeather) then) =
       __$$_GetWeatherCopyWithImpl<$Res>;
   @useResult
-  $Res call({dynamic response});
+  $Res call({WeatherData response});
+
+  $WeatherDataCopyWith<$Res> get response;
 }
 
 /// @nodoc
@@ -513,14 +515,22 @@ class __$$_GetWeatherCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? response = freezed,
+    Object? response = null,
   }) {
     return _then(_$_GetWeather(
-      freezed == response
+      null == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as WeatherData,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $WeatherDataCopyWith<$Res> get response {
+    return $WeatherDataCopyWith<$Res>(_value.response, (value) {
+      return _then(_value.copyWith(response: value));
+    });
   }
 }
 
@@ -530,7 +540,7 @@ class _$_GetWeather implements _GetWeather {
   const _$_GetWeather(this.response);
 
   @override
-  final dynamic response;
+  final WeatherData response;
 
   @override
   String toString() {
@@ -542,12 +552,12 @@ class _$_GetWeather implements _GetWeather {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetWeather &&
-            const DeepCollectionEquality().equals(other.response, response));
+            (identical(other.response, response) ||
+                other.response == response));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
+  int get hashCode => Object.hash(runtimeType, response);
 
   @JsonKey(ignore: true)
   @override
@@ -559,7 +569,7 @@ class _$_GetWeather implements _GetWeather {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(dynamic response) getWeather,
+    required TResult Function(WeatherData response) getWeather,
     required TResult Function() loading,
     required TResult Function(Failure failure) error,
   }) {
@@ -570,7 +580,7 @@ class _$_GetWeather implements _GetWeather {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(dynamic response)? getWeather,
+    TResult? Function(WeatherData response)? getWeather,
     TResult? Function()? loading,
     TResult? Function(Failure failure)? error,
   }) {
@@ -581,7 +591,7 @@ class _$_GetWeather implements _GetWeather {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(dynamic response)? getWeather,
+    TResult Function(WeatherData response)? getWeather,
     TResult Function()? loading,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -631,9 +641,9 @@ class _$_GetWeather implements _GetWeather {
 }
 
 abstract class _GetWeather implements WeatherState {
-  const factory _GetWeather(final dynamic response) = _$_GetWeather;
+  const factory _GetWeather(final WeatherData response) = _$_GetWeather;
 
-  dynamic get response;
+  WeatherData get response;
   @JsonKey(ignore: true)
   _$$_GetWeatherCopyWith<_$_GetWeather> get copyWith =>
       throw _privateConstructorUsedError;
@@ -677,7 +687,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(dynamic response) getWeather,
+    required TResult Function(WeatherData response) getWeather,
     required TResult Function() loading,
     required TResult Function(Failure failure) error,
   }) {
@@ -688,7 +698,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(dynamic response)? getWeather,
+    TResult? Function(WeatherData response)? getWeather,
     TResult? Function()? loading,
     TResult? Function(Failure failure)? error,
   }) {
@@ -699,7 +709,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(dynamic response)? getWeather,
+    TResult Function(WeatherData response)? getWeather,
     TResult Function()? loading,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -815,7 +825,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(dynamic response) getWeather,
+    required TResult Function(WeatherData response) getWeather,
     required TResult Function() loading,
     required TResult Function(Failure failure) error,
   }) {
@@ -826,7 +836,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(dynamic response)? getWeather,
+    TResult? Function(WeatherData response)? getWeather,
     TResult? Function()? loading,
     TResult? Function(Failure failure)? error,
   }) {
@@ -837,7 +847,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(dynamic response)? getWeather,
+    TResult Function(WeatherData response)? getWeather,
     TResult Function()? loading,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
