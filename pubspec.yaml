@@ -19,6 +19,8 @@ dependencies:
   flutter_bloc: ^8.1.1
   get_it: ^7.6.0
   dartz: ^0.10.1
+  geolocator: ^9.0.2
+  shared_preferences: ^2.1.2
 
 dev_dependencies:
   flutter_test:
