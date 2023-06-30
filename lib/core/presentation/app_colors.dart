@@ -4,6 +4,7 @@ abstract class AppColors {
   static const white = Colors.white;
   static const gray1 = Color(0xFF8799A5);
   static const red = Colors.red;
+  static const black = Colors.black;
 
   static const MaterialColor appColor =
       MaterialColor(_mcgpalette0PrimaryValue, <int, Color>{

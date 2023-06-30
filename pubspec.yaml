@@ -21,6 +21,9 @@ dependencies:
   dartz: ^0.10.1
   geolocator: ^9.0.2
   shared_preferences: ^2.1.2
+  json_annotation: ^4.0.1
+  json_serializable: ^6.1.3
+  flutter_svg: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -29,4 +32,12 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 flutter:
+  assets:
+    - assets/snow.svg
+    - assets/big_rain.svg
+    - assets/rain_and_sun.svg
+    - assets/rain.svg
+    - assets/storm.svg
+    - assets/sun.svg
+    - assets/location.svg
   uses-material-design: true

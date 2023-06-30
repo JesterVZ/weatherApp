@@ -23,8 +23,10 @@ abstract class AppUI {
   static BorderRadius borderRadius1 = BorderRadius.circular(8);
   static BorderRadius borderRadius2 = BorderRadius.circular(24);
 
-  static appScaffold(Color backgroundColor, Widget body) => Scaffold(
+  static appScaffold(Widget body, {Gradient? gradient, BuildContext? context, Color? backgroundColor}) => Scaffold(
         backgroundColor: backgroundColor,
-        body: body,
+        body: gradient != null ? Container(width: MediaQuery.of(context!).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(gradient: gradient), child: body) : body,
       );
 }

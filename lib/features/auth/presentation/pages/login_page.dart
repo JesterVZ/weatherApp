@@ -41,10 +41,10 @@ class _LoginPageState extends State<LoginPage> {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => ContentPage()),
-                          (route) => false);
+                      MaterialPageRoute(
+                          builder: (context) => const ContentPage()),
+                      (route) => false);
                 });
-
               },
               error: (failure) {
                 loading = false;
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               },
             );
             return AppUI.appScaffold(
-                AppColors.white,
+                backgroundColor: AppColors.white,
                 Padding(
                   padding: AppUI.contentPadding,
                   child: Column(
@@ -128,12 +128,13 @@ class _LoginPageState extends State<LoginPage> {
           labelText: label,
         ),
       );
-  _buildButton() =>
-      ElevatedButton(onPressed: !loading ? () {
-        bloc.add(Login(emailController.text, passwordController.text));
-      } : null, child:  loading
-          ? const ButtonProgressIndicator()
-          :  const Text("Войти"));
+  _buildButton() => ElevatedButton(
+      onPressed: !loading
+          ? () {
+              bloc.add(Login(emailController.text, passwordController.text));
+            }
+          : null,
+      child: loading ? const ButtonProgressIndicator() : const Text("Войти"));
   _buildErrorHeader() => Container(
         height: 40,
         decoration: BoxDecoration(

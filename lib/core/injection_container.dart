@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:weather_app/core/services/firebase_service.dart';
-import 'package:weather_app/core/services/shared_preferences_service.dart';
 import 'package:weather_app/features/auth/data/repository/auth_repository.dart';
 import 'package:weather_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:weather_app/features/auth/domain/usecase/auth_usecase.dart';
@@ -26,5 +25,4 @@ Future<void> startup() async {
   locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authService: locator()));
   locator.registerLazySingleton<GetWeatherRepository>(() => GetWeatherRepositoryImpl());
   locator.registerFactory(() => FirebaseService());
-  locator.registerFactory(() => SharedPreferencesService());
 }

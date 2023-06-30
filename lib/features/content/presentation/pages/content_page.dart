@@ -8,6 +8,8 @@ import 'package:weather_app/core/presentation/app_ui.dart';
 import 'package:weather_app/features/content/presentation/bloc/weather_bloc.dart';
 
 class ContentPage extends StatefulWidget {
+  const ContentPage({super.key});
+
   @override
   State<StatefulWidget> createState() => _ContentPageState();
 }
@@ -32,6 +34,10 @@ class _ContentPageState extends State<ContentPage> {
         bloc.add(GetWeather(position!));
       }
 
+    }).onError((error, stackTrace) {
+      setState(() {
+        errorText = error.toString();
+      });
     });
   }
 
@@ -81,15 +87,23 @@ class _ContentPageState extends State<ContentPage> {
               loading: () {
                 loading = true;
               },
-              error: (failure) {},
+              error: (failure) {
+                errorText = "Ошибка получения данных";
+              },
             );
             return AppUI.appScaffold(
-                AppColors.white,
-                Padding(
+              context: context,
+              gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [AppColors.appColor, AppColors.black]),
+                const Padding(
                   padding: AppUI.contentPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [],
+                    children: [
+                      
+                    ],
                   ),
                 ));
           },

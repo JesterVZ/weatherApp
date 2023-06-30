@@ -4,8 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/core/presentation/app_colors.dart';
 import 'package:weather_app/core/presentation/app_ui.dart';
+import 'package:weather_app/core/services/shared_preferences_service.dart';
 import 'package:weather_app/features/auth/presentation/pages/login_page.dart';
 import 'package:weather_app/core/injection_container.dart' as di;
+import 'package:weather_app/features/content/presentation/pages/content_page.dart';
 
 void main() async {
 
@@ -13,13 +15,17 @@ void main() async {
   await Firebase.initializeApp();
   await di.startup();
   runZonedGuarded(() async {
-
-  }, (error, stack) { });
-  runApp(const MyApp());
+    final loginData = await SharedPreferencesService.getLoginData();
+    runApp(WeatherApp(loginData == null));
+  }, (error, stack) {
+    runApp(const WeatherApp(true));
+   });
+  
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class WeatherApp extends StatelessWidget {
+  const WeatherApp(this.forceLogin, {super.key});
+  final bool forceLogin;
 
   // This widget is the root of your application.
   @override
@@ -45,7 +51,7 @@ class MyApp extends StatelessWidget {
           bodySmall: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 12),
         )
       ),
-      home: const LoginPage()
+      home: forceLogin ? const LoginPage() : ContentPage()
     );
   }
 }

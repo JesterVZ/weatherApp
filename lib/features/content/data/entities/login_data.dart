@@ -9,5 +9,5 @@ class LoginData with _$LoginData{
   const factory LoginData({required String login, required String password}) = _LoginData;
 
   factory LoginData.fromJson(Map<String, dynamic> json) =>
-      _LoginDataFromJson(json);
+      _$LoginDataFromJson(json);
 }

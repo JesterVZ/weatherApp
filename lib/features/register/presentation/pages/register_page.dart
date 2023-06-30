@@ -47,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 });
 
             return AppUI.appScaffold(
-                AppColors.white,
+                 backgroundColor: AppColors.white,
                 Padding(
                   padding: AppUI.contentPadding,
                   child: Column(
